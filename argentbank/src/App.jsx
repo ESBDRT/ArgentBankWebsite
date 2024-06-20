@@ -1,4 +1,4 @@
-import RouterComp from "./components/router/router";
+import RouterComp from './router/router'
 
 function App() {
   return (
