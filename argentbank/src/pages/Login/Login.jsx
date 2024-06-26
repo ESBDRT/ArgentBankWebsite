@@ -2,11 +2,9 @@ import Header from '../../components/header/header'
 import Footer from '../../components/footer/footer'
 import './Login.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
     function LoginRequest(event) {
-
         var email = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
@@ -16,13 +14,16 @@ function Login() {
         axios.post('http://localhost:3001/api/v1/user/login', {
             email: email,
             password: password
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
+        })
+        .then(function (response) {
+            if (response.ok) {
+                var token = response.data.body.token;
+                localStorage.setItem('token', token);
+            }
+        })
+        .catch(function (error) {
             console.log(error);
-          });
+        });
     }
     return (
         <body>
@@ -34,23 +35,23 @@ function Login() {
                     <form onSubmit={LoginRequest}>
                         <div className="input-wrapper">
                             <label htmlFor="username">Username</label>
-                            <input type="text" id="username" required/>
+                            <input type="text" id="username" required />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" required/>
+                            <input type="password" id="password" required />
                         </div>
                         <div className="input-remember">
                             <input type="checkbox" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
-                        <button type='submit' className="sign-in-button">Sign In</button>
+                        <button type="submit" className="sign-in-button">Sign In</button>
                     </form>
                 </section>
             </main>
             <Footer />
         </body>
-    )
+    );
 }
 
 export default Login;

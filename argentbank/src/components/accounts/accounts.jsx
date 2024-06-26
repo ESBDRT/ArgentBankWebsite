@@ -1,6 +1,27 @@
-import './accounts.css'
+import "./accounts.css";
+import axios from "axios";
 
 function Accounts() {
+  function UserRequest() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios
+        .post("http://localhost:3001/api/v1/user/profile", {
+          headers: {
+            Authorization: "Bearer " + token, // Set the token here
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
+        });
+    } else {
+      console.error("Token is missing from local storage");
+    }
+  }
   return (
     <main class="main bg-dark">
       <div class="header">
@@ -9,7 +30,9 @@ function Accounts() {
           <br />
           Tony Jarvis!
         </h1>
-        <button class="edit-button">Edit Name</button>
+        <button class="edit-button" onClick={UserRequest}>
+          Edit Name
+        </button>
       </div>
       <h2 class="sr-only">Accounts</h2>
       <section class="account">
