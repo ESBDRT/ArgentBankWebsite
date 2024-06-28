@@ -6,10 +6,9 @@ function Accounts() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      axios
-        .post("http://localhost:3001/api/v1/user/profile", {
+      axios.post("http://localhost:3001/api/v1/user/profile", {}, {
           headers: {
-            Authorization: "Bearer " + token, // Set the token here
+            Authorization: "Bearer " + token,
           },
         })
         .then((response) => {

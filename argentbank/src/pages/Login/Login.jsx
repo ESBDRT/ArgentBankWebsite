@@ -2,6 +2,7 @@ import Header from '../../components/header/header'
 import Footer from '../../components/footer/footer'
 import './Login.css'
 import axios from 'axios';
+import { redirect } from 'react-router-dom';
 
 function Login() {
     function LoginRequest(event) {
@@ -9,14 +10,13 @@ function Login() {
         var password = document.getElementById('password').value;
 
         event.preventDefault();
-        console.log('You clicked submit.');
 
         axios.post('http://localhost:3001/api/v1/user/login', {
             email: email,
-            password: password
+            password: password,
         })
         .then(function (response) {
-            if (response.ok) {
+            if (response.status === 200) {
                 var token = response.data.body.token;
                 localStorage.setItem('token', token);
             }
