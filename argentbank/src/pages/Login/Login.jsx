@@ -2,7 +2,6 @@ import Header from '../../components/header/header'
 import Footer from '../../components/footer/footer'
 import './Login.css'
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
 
 function Login() {
     function LoginRequest(event) {
